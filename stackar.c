@@ -1,115 +1,94 @@
-        #include "stackar.h"
-        #include "fatal.h"
-        #include <stdlib.h>
+#include "stackar.h"
+#include "fatal.h"
+#include <stdlib.h>
 
-        #define EmptyTOS ( -1 )
-        #define MinStackSize ( 5 )
+#define EmptyTOS (-1)
+#define MinStackSize (5)
 
-        struct StackRecord
-        {
-            int Capacity;
-            int TopOfStack;
-            ElementType *Array;
-        };
+struct StackRecord {
+    int Capacity;
+    int TopOfStack;
+    ElementType *Array;
+};
 
-/* START: fig3_48.txt */
-        int
-        IsEmpty( Stack S )
-        {
-            return S->TopOfStack == EmptyTOS;
-        }
-/* END */
+int
+IsEmpty(Stack S) {
+    return S->TopOfStack == EmptyTOS;
+}
 
-        int
-        IsFull( Stack S )
-        {
-            return S->TopOfStack == S->Capacity - 1;
-        }
+int
+IsFull(Stack S) {
+    return S->TopOfStack == S->Capacity - 1;
+}
 
-/* START: fig3_46.txt */
-        Stack
-        CreateStack( int MaxElements )
-        {
-            Stack S;
+Stack
+CreateStack(int MaxElements) {
+    Stack S;
 
-/* 1*/      if( MaxElements < MinStackSize )
-/* 2*/          Error( "Stack size is too small" );
+    if (MaxElements < MinStackSize) {
+        Error("Stack size is too small");
+    }
 
-/* 3*/      S = malloc( sizeof( struct StackRecord ) );
-/* 4*/      if( S == NULL )
-/* 5*/          FatalError( "Out of space!!!" );
+    S = malloc(sizeof(struct StackRecord));
+    if (S == NULL) {
+        FatalError("Out of space!!!");
+    }
 
-/* 6*/      S->Array = malloc( sizeof( ElementType ) * MaxElements );
-/* 7*/      if( S->Array == NULL )
-/* 8*/          FatalError( "Out of space!!!" );
-/* 9*/      S->Capacity = MaxElements;
-/*10*/      MakeEmpty( S );
+    S->Array = malloc(sizeof(ElementType) * MaxElements);
+    if (S->Array == NULL) {
+        FatalError("Out of space!!!");
+    }
+    S->Capacity = MaxElements;
+    MakeEmpty(S);
 
-/*11*/      return S;
-        }
-/* END */
+    return S;
+}
 
-/* START: fig3_49.txt */
-        void
-        MakeEmpty( Stack S )
-        {
-            S->TopOfStack = EmptyTOS;
-        }
-/* END */
+void
+MakeEmpty(Stack S) {
+    S->TopOfStack = EmptyTOS;
+}
 
-/* START: fig3_47.txt */
-        void
-        DisposeStack( Stack S )
-        {
-            if( S != NULL )
-            {
-                free( S->Array );
-                free( S );
-            }
-        }
-/* END */
+void
+DisposeStack(Stack S) {
+    if (S != NULL) {
+        free(S->Array);
+        free(S);
+    }
+}
 
-/* START: fig3_50.txt */
-        void
-        Push( ElementType X, Stack S )
-        {
-            if( IsFull( S ) )
-                Error( "Full stack" );
-            else
-                S->Array[ ++S->TopOfStack ] = X;
-        }
-/* END */
+void
+Push(ElementType X, Stack S) {
+    if (IsFull(S)) {
+        Error("Full stack");
+    } else {
+        S->Array[++S->TopOfStack] = X;
+    }
+}
 
+ElementType
+Top(Stack S) {
+    if (!IsEmpty(S)) {
+        return S->Array[S->TopOfStack];
+    }
+    Error("Empty stack");
+    return 0;  /* Return value used to avoid warning */
+}
 
-/* START: fig3_51.txt */
-        ElementType
-        Top( Stack S )
-        {
-            if( !IsEmpty( S ) )
-                return S->Array[ S->TopOfStack ];
-            Error( "Empty stack" );
-            return 0;  /* Return value used to avoid warning */
-        }
-/* END */
+void
+Pop(Stack S) {
+    if (IsEmpty(S)) {
+        Error("Empty stack");
+    } else {
+        S->TopOfStack--;
+    }
+}
 
-/* START: fig3_52.txt */
-        void
-        Pop( Stack S )
-        {
-            if( IsEmpty( S ) )
-                Error( "Empty stack" );
-            else
-                S->TopOfStack--;
-        }
-/* END */
-
-/* START: fig3_53.txt */
-        ElementType
-        TopAndPop( Stack S )
-        {
-            if( !IsEmpty( S ) )
-                return S->Array[ S->TopOfStack-- ];
-            Error( "Empty stack" );
-            return 0;  /* Return value used to avoid warning */
-        }
-/* END */
+ElementType
+TopAndPop(Stack S) {
+    if (!IsEmpty(S)) {
+        return S->Array[S->TopOfStack--];
+    }
+    Error("Empty stack");
+    return 0;  /* Return value used to avoid warning */
+}
