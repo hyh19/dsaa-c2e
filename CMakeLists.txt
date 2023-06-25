@@ -7,3 +7,5 @@ add_executable(testlist testlist.c list.c list.h fatal.h)
 add_executable(teststka teststka.c stackar.c stackar.h)
 add_executable(teststkl teststkl.c stackli.c stackli.h)
 add_executable(testque testque.c queue.c queue.h)
+
+add_executable(testtree testtree.c tree.c tree.h)
