@@ -38,7 +38,9 @@ CreateStack(int MaxElements) {
     if (S->Array == NULL) {
         FatalError("Out of space!!!");
     }
+
     S->Capacity = MaxElements;
+
     MakeEmpty(S);
 
     return S;
