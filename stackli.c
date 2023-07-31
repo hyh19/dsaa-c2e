@@ -78,3 +78,19 @@ Pop(Stack S) {
         free(FirstCell);
     }
 }
+
+ElementType
+TopAndPop(Stack S) {
+    PtrToNode FirstCell;
+    ElementType TmpElement;
+
+    if (!IsEmpty(S)) {
+        TmpElement = S->Next->Element;
+        FirstCell = S->Next;
+        S->Next = S->Next->Next;
+        free(FirstCell);
+        return TmpElement;
+    }
+    Error("Empty stack");
+    return 0;  /* Return value used to avoid warning */
+}
