@@ -61,11 +61,11 @@ DisposeQueue(Queue Q) {
 }
 
 static int
-Succ(int Value, Queue Q) {
-    if (++Value == Q->Capacity) {
-        Value = 0;
+Succ(int index, Queue Q) {
+    if (++index == Q->Capacity) {
+        index = 0;
     }
-    return Value;
+    return index;
 }
 
 void
@@ -100,7 +100,7 @@ Dequeue(Queue Q) {
 
 ElementType
 FrontAndDequeue(Queue Q) {
-    ElementType X = 0;
+    ElementType X;
 
     if (IsEmpty(Q)) {
         Error("Empty queue");

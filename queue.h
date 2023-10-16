@@ -1,7 +1,7 @@
 typedef int ElementType;
 
-#ifndef _Queue_h
-#define _Queue_h
+#ifndef Queue_h
+#define Queue_h
 
 struct QueueRecord;
 typedef struct QueueRecord *Queue;
@@ -24,4 +24,4 @@ void Dequeue(Queue Q);
 
 ElementType FrontAndDequeue(Queue Q);
 
-#endif  /* _Queue_h */
+#endif  /* Queue_h */
